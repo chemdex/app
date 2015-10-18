@@ -1,23 +1,41 @@
 /* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+var EmberApp = require('ember-cli/lib/broccoli/ember-app'),
+    assetLocation;
 
-module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
-    // Add options here
-  });
+assetLocation = function (fileName) {
+    if (EmberApp.env() === 'production') {
+        fileName = fileName.replace('.', '.min.');
+    }
+    return '/assets/' + fileName;
+};
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
+module.exports = function (defaults) {
+    var app = new EmberApp(defaults, {
+        outputPaths: {
+            app: {
+                css: {
+                    app: assetLocation('chemdex.css')
+                },
+                js: assetLocation('chemdex.js')
+            },
+            vendor: {
+                css: assetLocation('vendor.css'),
+                js: assetLocation('vendor.js')
+            }
+        },
+        lessOptions: {
+            paths: ['bower_components/AdminLTE/build/less']
+        },
+        hinting: false,
+        fingerprint: {enabled: false}
+    });
 
-  return app.toTree();
+    // Styles
+    app.import('bower_components/AdminLTE/bootstrap/css/bootstrap.css');
+
+    // scripts
+    app.import('bower_components/AdminLTE/bootstrap/js/bootstrap.js');
+    app.import('bower_components/AdminLTE/dist/js/app.js');
+
+    return app.toTree();
 };
