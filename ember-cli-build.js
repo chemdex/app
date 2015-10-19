@@ -35,6 +35,8 @@ module.exports = function (defaults) {
 
     // scripts
     app.import('bower_components/AdminLTE/bootstrap/js/bootstrap.js');
+    app.import('bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.js');
+    app.import('bower_components/AdminLTE/plugins/fastclick/fastclick.js');
     app.import('bower_components/AdminLTE/dist/js/app.js');
 
     return app.toTree();

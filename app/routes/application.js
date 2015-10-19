@@ -1,8 +1,6 @@
 import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend({
-    activate: function () {
-        Ember.$('body').addClass('skin-blue sidebar-mini');
-        return this._super(...arguments);
-    }
+export default Ember.Route.extend(ApplicationRouteMixin, {
+
 });

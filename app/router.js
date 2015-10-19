@@ -7,6 +7,8 @@ var Router = Ember.Router.extend({
 
 Router.map(function () {
     this.route('dashboard', {path: '/'});
+    this.route('profile');
+    this.route('signout');
 });
 
 export default Router;
